@@ -1,4 +1,6 @@
+from django.core.urlresolvers import resolve
 from django.test import TestCase
+from django.http import HttpRequest
 from django.template.loader import render_to_string
 
 from lists.views import home_page
@@ -53,8 +55,8 @@ class ListViewTest(TestCase):
 
     def test_displays_all_items(self):
         list_ = List.objects.create()
-        Item.objects.create(text='itemey 1')
-        Item.objects.create(text='itemey 2')
+        Item.objects.create(text='itemey 1', list=list_)
+        Item.objects.create(text='itemey 2', list=list_)
 
         response = self.client.get('/lists/the-only-list-in-the-world/')
 
